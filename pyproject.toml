@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "shorty"
+version = "0.1.0"
+description = "url shortener"
+authors = ["dmitry <kalibdune@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "0.115.6"
+uvicorn = "0.34.0"
+pydantic-settings = "2.7.1"
+asyncpg = "^0.30.0"
+alembic = "^1.14.0"
+pytest = "^8.3.4"
+pytest-asyncio = "^0.25.3"
+factory-boy = "^3.3.3"
+freezegun = "^1.5.1"
+psycopg = { extras = ["binary"], version = "^3.2.4" }
+pyjwt = "^2.10.1"
+pydantic = { extras = ["email"], version = "^2.10.6" }
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.38" }
+passlib = {extras = ["argon2"], version = "^1.7.4"}
+python-multipart = "^0.0.20"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "4.0.1"
+pytest = "8.3.4"
+pytest-cov = "6.0.0"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+pytest-asyncio = "^0.25.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
