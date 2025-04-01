@@ -3,7 +3,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, Response, status
 
-from bezum.db.schemas.purchase import PurchaseCreateSchema, PurchaseSchema, PurchaseUpdateSchema
+from bezum.db.schemas.purchase import PurchaseCreateSchema, PurchaseCurrencySchema, PurchaseSchema, PurchaseUpdateSchema
 from bezum.endpoints.dependencies import OAuth, get_session
 from bezum.services.purchase import PurchaseService
 
@@ -20,7 +20,7 @@ async def create_purchase(
     purchase_service = PurchaseService(session)
     return await purchase_service.create_purchase(user, data)
 
-@router.get("/all/", response_model=list[PurchaseSchema], status_code=status.HTTP_200_OK)
+@router.get("/all/", response_model=list[PurchaseCurrencySchema], status_code=status.HTTP_200_OK)
 async def get_all_purchases_by_user_id(user: OAuth, session=Depends(get_session)):
     purchase_service = PurchaseService(session)
     return await purchase_service.get_all_purchase_by_user_id(user)

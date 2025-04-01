@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 
 
-class UserBaseSchema(BaseModel):
+class CurrencySchema(BaseModel):
     course: str
-    value: str
+    value: float
 

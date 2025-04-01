@@ -22,7 +22,7 @@ class CurrencyService(metaclass=SingletonMeta):
                     #print(data, type(data))
                     list_data = []
                     for key, value in data.items():
-                        list_data.append(CurrencySchema(key=key, value=value))
+                        list_data.append(CurrencySchema(key=key[:3], value=float(value)))
                     #print(list_data)
                     return list_data
                 else:
@@ -40,17 +40,17 @@ class CurrencyService(metaclass=SingletonMeta):
                     status = data_json['status']
                     data = data_json['data']
                     #print(data, type(data))
-                    res = CurrencySchema(key=rand_cur, value=data[rand_cur])
+                    res = CurrencySchema(key=rand_cur[:3], value=float(data[rand_cur]))
                     return res
                 else:
                     raise Exception(f'Error fetching data: {response.status}')
 
 
-async def main():
-    currency_service = CurrencyService()
-    await currency_service.get_all_currencies()
-    await currency_service.get_random_currency()
-    await currency_service.close_session()
+# async def main():
+#     currency_service = CurrencyService()
+#     await currency_service.get_all_currencies()
+#     await currency_service.get_random_currency()
+#     await currency_service.close_session()
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())

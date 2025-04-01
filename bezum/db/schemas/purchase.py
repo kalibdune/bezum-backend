@@ -3,6 +3,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, EmailStr
 
+from bezum.db.schemas.currency import CurrencySchema
+
 
 class PurchaseBaseSchema(BaseModel):
     description: str
@@ -29,3 +31,7 @@ class PurchaseUpdateSchema(BaseModel):
 
 class PurchaseInDB(PurchaseBaseSchema):
     user_id: UUID
+    
+    
+class PurchaseCurrencySchema(PurchaseSchema):
+    currency: CurrencySchema
