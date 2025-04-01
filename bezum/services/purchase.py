@@ -1,4 +1,4 @@
-import random
+from random import choice
 from uuid import UUID
 
 from pydantic import EmailStr
@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from bezum.db.schemas.purchase import PurchaseCreateSchema, PurchaseCurrencySchema, PurchaseSchema, PurchaseUpdateSchema, PurchaseInDB
 from bezum.db.schemas.user import UserSchema
+from bezum.db.schemas.currency import CurrencySchema
 
 from bezum.repositories.purchase import PurchaseRepository
 from bezum.services.auth import AuthService
@@ -54,6 +55,6 @@ class PurchaseService:
         res = []
         for purchase in purchases:
             purchase = PurchaseSchema.model_validate(purchase, from_attributes=True)
-            res.append(PurchaseCurrencySchema.model_validate(purchase.model_dump(), currency=random.choice(currencies)))
+            res.append(PurchaseCurrencySchema.model_validate({**purchase.model_dump(), **{"currency": choice(currencies)}}))
             
         return res

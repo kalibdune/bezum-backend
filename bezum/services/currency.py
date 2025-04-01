@@ -1,4 +1,3 @@
-
 import aiohttp
 import asyncio
 import random
@@ -7,10 +6,7 @@ from bezum.db.schemas.currency import CurrencySchema
 from bezum.utils.singleton import SingletonMeta
 
 class CurrencyService(metaclass=SingletonMeta):
-    
-    
-
-    async def get_all_currencies(self):
+    async def get_all_currencies(self) -> list[CurrencySchema]:
         async with aiohttp.ClientSession() as self.session:
             response = await self.session.get('https://currate.ru/api/?get=rates&pairs=USDRUB,EURRUB,THBRUB,RSDRUB,JPYRUB,LKRRUB,MDLRUB,MMKRUB,GELRUB,GBPRUB,BYNRUB,CADRUB,CHFRUB,CNYRUB,ETHRUB,BCHRUB,BTCRUB,BYNRUB&key=d0f096c77d6302528ed02df44ef86f93')
             async with response:
@@ -22,13 +18,13 @@ class CurrencyService(metaclass=SingletonMeta):
                     #print(data, type(data))
                     list_data = []
                     for key, value in data.items():
-                        list_data.append(CurrencySchema(key=key[:3], value=float(value)))
+                        list_data.append(CurrencySchema(course=key[:3], value=float(value)))
                     #print(list_data)
                     return list_data
                 else:
                     raise Exception(f'Error fetching data: {response.status}')
 
-    async def get_random_currency(self):
+    async def get_random_currency(self) -> CurrencySchema:
         async with aiohttp.ClientSession() as self.session:
             currencies = 'USDRUB','EURRUB','THBRUB','RSDRUB','JPYRUB','LKRRUB','MDLRUB','MMKRUB','GELRUB','GBPRUB','BYNRUB','CADRUB','CHFRUB','CNYRUB','ETHRUB','BCHRUB','BTCRUB','BYNRUB'
             rand_cur = random.choice(currencies)
