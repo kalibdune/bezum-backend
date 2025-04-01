@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "shorty"
+name = "bezum"
 version = "0.1.0"
 description = "url shortener"
-authors = ["dmitry <kalibdune@yandex.ru>"]
+authors = ["dmitry <kalibdune@yandex.ru>", andrax <andronov_maksimka@mail.ru>]
 readme = "README.md"
 
 [tool.poetry.dependencies]
