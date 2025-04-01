@@ -23,7 +23,7 @@ class PurchaseService:
         return PurchaseSchema.model_validate(purchase, from_attributes=True)
     
     async def create_purchase(self, user: UserSchema, purchase: PurchaseCreateSchema) -> PurchaseSchema:
-        purchase = PurchaseInDB(purchase.description, purchase.category, purchase.price, user.id)
+        purchase = PurchaseInDB(description=purchase.description, category=purchase.category, price=purchase.price, user_id=user.id)
         purchase = await self._repository.create(purchase.model_dump())
         return PurchaseSchema.model_validate(purchase, from_attributes=True)
     
@@ -40,7 +40,11 @@ class PurchaseService:
     
     async def delete_purchase_by_id(
             self, purchase_id: UUID
-    ):
+    ) -> UUID:
         purchase = await self.get_purchase_by_id(purchase_id)
         purchase = await self._repository.delete_by_id(purchase_id)
-        # return ...
+        return purchase
+    
+    async def get_all_purchase_by_user_id(self, user: UserSchema) -> list[PurchaseSchema]:
+        purchases = await self._repository.get_all_by_user_id(user.id)
+        return [PurchaseSchema.model_validate(purchase, from_attributes=True) for purchase in purchases]

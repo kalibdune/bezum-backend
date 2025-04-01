@@ -20,6 +20,10 @@ async def create_purchase(
     purchase_service = PurchaseService(session)
     return await purchase_service.create_purchase(user, data)
 
+@router.get("/all/", response_model=list[PurchaseSchema], status_code=status.HTTP_200_OK)
+async def get_all_purchases_by_user_id(user: OAuth, session=Depends(get_session)):
+    purchase_service = PurchaseService(session)
+    return await purchase_service.get_all_purchase_by_user_id(user)
 
 @router.get("/{id}/", response_model=PurchaseSchema, status_code=status.HTTP_200_OK)
 async def get_purchase_by_id(auth: OAuth, id: UUID, session=Depends(get_session)):
@@ -35,7 +39,7 @@ async def update_purchase(
     return await purchase_service.update_purchase_by_id(id, data)
 
 
-@router.delete("/{id}/", response_model=PurchaseSchema, status_code=status.HTTP_200_OK)
+@router.delete("/{id}/", response_model=UUID, status_code=status.HTTP_200_OK)
 async def delete_purchase(auth: OAuth, id: UUID, session=Depends(get_session)):
     purchase_service = PurchaseService(session)
     return await purchase_service.delete_purchase_by_id(id)
