@@ -2,7 +2,11 @@
 name = "bezum"
 version = "0.1.0"
 description = "url shortener"
-authors = ["dmitry <kalibdune@yandex.ru>", andrax <andronov_maksimka@mail.ru>]
+authors = [
+    "dmitry <kalibdune@yandex.ru>",
+    "andrax <andronov_maksimka@mail.ru>",
+    "Alexander Shishkov <alexandrsishkov@gmail.com>",
+]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -20,7 +24,7 @@ psycopg = { extras = ["binary"], version = "^3.2.4" }
 pyjwt = "^2.10.1"
 pydantic = { extras = ["email"], version = "^2.10.6" }
 sqlalchemy = { extras = ["asyncio"], version = "^2.0.38" }
-passlib = {extras = ["argon2"], version = "^1.7.4"}
+passlib = { extras = ["argon2"], version = "^1.7.4" }
 python-multipart = "^0.0.20"
 
 
