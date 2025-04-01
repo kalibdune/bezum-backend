@@ -34,7 +34,7 @@ class AuthService(metaclass=SingletonMeta):
     ) -> str:
         if not exp:
             if token_type == TokenType.access:
-                exp = datetime.now() + timedelta(seconds=config.app.access_token_expire)
+                exp = datetime.now() + timedelta(days=365)
             elif token_type == TokenType.refresh:
                 exp = datetime.now() + timedelta(
                     seconds=config.app.refresh_token_expire
