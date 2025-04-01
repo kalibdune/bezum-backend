@@ -7,7 +7,6 @@ from pydantic_settings import BaseSettings as _BaseSettings
 from pydantic_settings import SettingsConfigDict
 
 os.environ["TZ"] = "UTC"
-time.tzset()
 
 
 class BaseConfig(_BaseSettings):
