@@ -1,3 +1,4 @@
+from random import choice
 from uuid import UUID
 
 from pydantic import EmailStr
@@ -26,6 +27,10 @@ class UserService:
         if user is None:
             raise NotFoundError(f"email: {email}")
         return UserSchema.model_validate(user, from_attributes=True)
+    
+    async def get_random_user(self) -> UserSchema:
+        users = await self._repository.get_all()
+        return UserSchema.model_validate(choice(users), from_attributes=True)
 
     async def create_user(self, user: UserCreateSchema) -> UserSchema:
         db_user = await self._repository.get_by_email(str(user.email))
