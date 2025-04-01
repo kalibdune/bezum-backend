@@ -32,6 +32,12 @@ async def create_user(
     return user
 
 
+@router.get("/random/", response_model=UserSchema, status_code=status.HTTP_200_OK)
+async def get_random_user(session=Depends(get_session)):
+    user_service = UserService(session)
+    return await user_service.get_random_user()
+
+
 @router.get("/{id}/", response_model=UserSchema, status_code=status.HTTP_200_OK)
 async def get_user_by_id(id: UUID, auth: OAuth, session=Depends(get_session)):
     user_service = UserService(session)
