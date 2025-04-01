@@ -6,6 +6,7 @@ from bezum.db.models.base import Base, TimeStampMixin
 
 if TYPE_CHECKING:
     from bezum.db.models.auth import Auth
+    from bezum.db.models.purchase import Purchase
 
 
 class User(Base, TimeStampMixin):
@@ -14,6 +15,8 @@ class User(Base, TimeStampMixin):
     name: Mapped[str] = mapped_column(nullable=False)
     password: Mapped[str] = mapped_column(nullable=False, unique=True)
     email: Mapped[str] = mapped_column(nullable=False, unique=True, index=True)
+
+    purchases: Mapped[list["Purchase"]] = relationship(back_populates="user")
 
     auths: Mapped[list["Auth"]] = relationship(back_populates="user")
 
