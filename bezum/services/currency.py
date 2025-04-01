@@ -8,6 +8,7 @@ from bezum.utils.singleton import SingletonMeta
 
 class CurrencyService(metaclass=SingletonMeta):
     
+    
 
     async def get_all_currencies(self):
         async with aiohttp.ClientSession() as self.session:
